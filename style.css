@@ -1,0 +1,27 @@
+#createGraphicButton {
+	width: 100px;
+	height: 30px;
+}
+
+.grid__container {
+	display: grid;
+	padding: 20px;
+	background-color: #262230;
+	grid-template-rows: repeat(11, 37px); /* 3 строки */
+	grid-template-columns: repeat(5, 98px);
+	grid-auto-flow: column;
+}
+
+.grid__container_item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #55339b;
+}
+
+.grid__container_item-colored {
+	background-color: #2f293b;
+	height: 27px;
+	width: 86px;
+	border-radius: 4px;
+}
