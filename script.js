@@ -19,14 +19,18 @@ function createGraphic() {
 		i = 1,
 		percent = 100;
 
-	document.querySelector('#y1').insertAdjacentHTML('afterend', `	<div class="grid__wrapper"></div>`);
+	document.querySelector('#y1').insertAdjacentHTML('beforebegin', `	<div class="grid__wrapper"></div>`);
 
 	document.querySelector('.grid__wrapper').insertAdjacentHTML('afterbegin', `<div class="grid__header">
 		<p class="grid__header_text grid__header_text-big">Нарощена сума</p>
 		<p class="grid__header_text grid__header_text-small">Щомісячно</p>
 	</div>`);
 
-	document.querySelector('.grid__wrapper').insertAdjacentHTML('beforeend', `	<div class="grid__container"></div>`);
+	document.querySelector('.grid__header').insertAdjacentHTML('afterend', `<div class="grid__wrapper_inner">
+		<div class="grid__container-month"></div>
+	</div>`)
+
+	document.querySelector('.grid__container-month').insertAdjacentHTML('afterend', `	<div class="grid__container"></div>`);
 
 	gridContainer = document.querySelector('.grid__container');
 	gridContainer.style.gridTemplateColumns = `repeat(${monthVint}, 98px)`;
@@ -42,12 +46,12 @@ function createGraphic() {
 	}
 
 	for (let i = 1; i <= 11; i++) {
-		gridContainer.innerHTML += `<div class="grid__text grid__text_percent" style="grid-row: ${i}/${i + 2}; grid-column: 1/3">${percent}%</div>`;
+		document.querySelector('.grid__container-month').innerHTML += `<div class="grid__text grid__text_percent" style="grid-row: ${i}/${i + 2}; grid-column: 1/3">${percent}%</div>`;
 		percent -= 10;
 	}
 
 	for (let i = 1; i < deposPerscentArray.length; i++) {
-		gridContainer.innerHTML += `<div class="grid__container_item" data-gridnumber="${deposPerscentArray[i]}" style="grid-row: ${11 - deposPerscentArray[i]}/12; grid-column: ${i + 1}/${i + 3}">
+		gridContainer.innerHTML += `<div class="grid__container_item" data-gridnumber="${deposPerscentArray[i]}" style="grid-row: ${11 - deposPerscentArray[i]}/12; grid-column: ${i}/${i + 2}">
 		</div>`;
 		monthNumber += 1;
 
@@ -95,14 +99,10 @@ function createGraphic() {
 		}
 
 		console.log(monthNumber, month)
-		gridContainer.innerHTML += `<div class="grid__text grid__text_month" style="grid-row: 12/14; grid-column: ${i + 1}/${i + 3}">${month}</div>`;
-
-
-
-
+		gridContainer.innerHTML += `<div class="grid__text grid__text_month" style="grid-row: 12/14; grid-column: ${i}/${i + 2}">${month}</div>`;
 
 		for (let j = 1; j <= (10 - deposPerscentArray[i]); j++) {
-			gridContainer.innerHTML += `<div class="grid__container_item-colored" style="grid-row: ${j}/${j + 2}; grid-column: ${i + 1}/${i + 3}">
+			gridContainer.innerHTML += `<div class="grid__container_item-colored" style="grid-row: ${j}/${j + 2}; grid-column: ${i}/${i}">
 		</div>`;
 		}
 	}
