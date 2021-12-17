@@ -7,21 +7,57 @@
 	display: grid;
 	padding: 20px;
 	background-color: #262230;
-	grid-template-rows: repeat(11, 37px); /* 3 строки */
-	grid-template-columns: repeat(5, 98px);
-	grid-auto-flow: column;
+	grid-template-rows: repeat(12, 27px); /* 3 строки */
+	grid-template-columns: repeat(5, 86px);
+	/* grid-gap: 5px; */
+	row-gap: 10px;
+	/* column-gap: 6px; */
+	/* grid-auto-flow: dense;
+	grid-auto-flow: column; */
+	/* justify-content: center; */
 }
 
 .grid__container_item {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #55339b;
+	/* display: flex; */
+	/* align-items: center;
+	justify-content: center; */
+	/* background-color: #55339b; */
+	background: linear-gradient(
+		180deg,
+		#853ff8 -26.42%,
+		#a32ff7 56.91%,
+		rgba(102, 42, 148, 0.72) 86.98%,
+		rgba(42, 37, 52, 0.24) 116.26%
+	);
+	/* height: 27px; */
+	width: 86px;
+	border-radius: 4px;
 }
 
 .grid__container_item-colored {
 	background-color: #2f293b;
+	/* display: flex;
+	align-items: center; */
+	/* margin-top: 5px; */
 	height: 27px;
 	width: 86px;
 	border-radius: 4px;
+}
+
+.grid__text {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	width: 86px;
+	height: 27px;
+	font-family: Proxima Nova;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 15.2621px;
+	line-height: 19px;
+	/* identical to box height */
+
+	text-align: right;
+
+	color: #ffffff;
 }

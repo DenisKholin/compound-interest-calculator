@@ -7,6 +7,7 @@ function createGraphic() {
 	let depositV = document.getElementById("deposit").value,
 		depositVint = parseInt(depositV, 10),
 		deposArray = [],
+		deposPerscentArray = [],
 		interestV = document.getElementById("inRate").value,
 		interestVint = parseInt(interestV, 10),
 		monthV = document.getElementById("inMonth").value,
@@ -14,35 +15,10 @@ function createGraphic() {
 		now = new Date(),
 		month,
 		gridContainer,
-		i = 1;
+		i = 1,
+		percent = 100;
 
-	document.querySelector('#y1').insertAdjacentHTML('afterend', `	<div class="grid__container">
-
-	</div>`);
-
-
-
-	gridContainer = document.querySelector('.grid__container');
-	gridContainer.style.gridTemplateColumns = `repeat(${monthVint}, 98px)`;
-
-
-	for (i; i <= monthVint; i++) {
-		var result = depositVint / 100 * interestVint;
-		depositVint = depositVint + result;
-		deposArray[i] = depositVint.toFixed(2);
-		console.log(depositVint.toFixed(2));
-
-		for (let j = 1; j <= 11; j++) {
-			gridContainer.innerHTML += `<div class="grid__container_item" data-gridnumber="${j}-${i}">
-				<div class="grid__container_item-colored"></div>
-			</div>`;
-		}
-	}
-
-	console.log(deposArray);
-
-
-	switch (now.getMonth() - 4) {
+	switch (now.getMonth()) {
 		case 0:
 			month = 'Січень';
 			break;
@@ -80,6 +56,60 @@ function createGraphic() {
 			month = 'Грудень';
 			break;
 	}
+
+
+	document.querySelector('#y1').insertAdjacentHTML('afterend', `	<div class="grid__container">
+
+	</div>`);
+
+
+
+	gridContainer = document.querySelector('.grid__container');
+	gridContainer.style.gridTemplateColumns = `repeat(${monthVint}, 98px)`;
+
+
+	for (i; i <= monthVint; i++) {
+		var result = depositVint / 100 * interestVint;
+		depositVint = depositVint + result;
+		deposArray[i] = +depositVint.toFixed(2);
+		console.log(depositVint.toFixed(2));
+
+		// for (let j = 1; j <= 11; j++) {
+		// 	gridContainer.innerHTML += `<div class="grid__container_item" data-gridnumber="${j}-${i}">
+		// 		<div class="grid__container_item-colored"></div>
+		// 	</div>`;
+		// }
+
+	}
+
+	// document.querySelector('[data-gridnumber="11-1"]').style.gridColumn = '1/2';
+	// document.querySelector('[data-gridnumber="11-1"]').style.gridRow = '1/8';
+
+	console.log(deposArray);
+
+	for (let i = 1; i < deposArray.length; i++) {
+		deposPerscentArray[i] = Math.round((deposArray[i] * 10 / deposArray[deposArray.length - 1]));
+	}
+
+	for (let i = 1; i <= 11; i++) {
+		gridContainer.innerHTML += `<div class="grid__text grid__text_percent" style="grid-row: ${i}/${i + 2}; grid-column: 1/3">${percent}%</div>`;
+		percent -= 10;
+	}
+
+	for (let i = 1; i < deposPerscentArray.length; i++) {
+		gridContainer.innerHTML += `<div class="grid__container_item" data-gridnumber="${deposPerscentArray[i]}" style="grid-row: ${11 - deposPerscentArray[i]}/12; grid-column: ${i + 1}/${i + 3}">
+		</div>`;
+		for (let j = 1; j <= (10 - deposPerscentArray[i]); j++) {
+			gridContainer.innerHTML += `<div class="grid__container_item-colored" style="grid-row: ${j}/${j + 2}; grid-column: ${i + 1}/${i + 3}">
+		</div>`;
+		}
+
+	}
+
+
+	console.log(deposPerscentArray);
+
+
 
 
 
