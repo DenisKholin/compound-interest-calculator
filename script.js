@@ -2,9 +2,6 @@ function createGraphic() {
 	if (document.querySelector('.grid__wrapper')) {
 		document.querySelector('.grid__wrapper').remove();
 	}
-	// if (document.querySelector('.grid__container')) {
-	// 	document.querySelector('.grid__container').remove();
-	// }
 
 	document.getElementById("y1").innerHTML = '';
 	let depositV = document.getElementById("deposit").value,
@@ -22,7 +19,6 @@ function createGraphic() {
 		i = 1,
 		percent = 100;
 
-
 	document.querySelector('#y1').insertAdjacentHTML('afterend', `	<div class="grid__wrapper"></div>`);
 
 	document.querySelector('.grid__wrapper').insertAdjacentHTML('afterbegin', `<div class="grid__header">
@@ -32,27 +28,14 @@ function createGraphic() {
 
 	document.querySelector('.grid__wrapper').insertAdjacentHTML('beforeend', `	<div class="grid__container"></div>`);
 
-
-
 	gridContainer = document.querySelector('.grid__container');
 	gridContainer.style.gridTemplateColumns = `repeat(${monthVint}, 98px)`;
-
 
 	for (i; i <= monthVint; i++) {
 		var result = depositVint / 100 * interestVint;
 		depositVint = depositVint + result;
 		deposArray[i] = +depositVint.toFixed(2);
-
-		// for (let j = 1; j <= 11; j++) {
-		// 	gridContainer.innerHTML += `<div class="grid__container_item" data-gridnumber="${j}-${i}">
-		// 		<div class="grid__container_item-colored"></div>
-		// 	</div>`;
-		// }
-
 	}
-
-	// document.querySelector('[data-gridnumber="11-1"]').style.gridColumn = '1/2';
-	// document.querySelector('[data-gridnumber="11-1"]').style.gridRow = '1/8';
 
 	for (let i = 1; i < deposArray.length; i++) {
 		deposPerscentArray[i] = Math.round((deposArray[i] * 10 / deposArray[deposArray.length - 1]));
@@ -66,6 +49,11 @@ function createGraphic() {
 	for (let i = 1; i < deposPerscentArray.length; i++) {
 		gridContainer.innerHTML += `<div class="grid__container_item" data-gridnumber="${deposPerscentArray[i]}" style="grid-row: ${11 - deposPerscentArray[i]}/12; grid-column: ${i + 1}/${i + 3}">
 		</div>`;
+		monthNumber += 1;
+
+		if (monthNumber >= 12) {
+			monthNumber = 0;
+		}
 
 		switch (monthNumber) {
 			case 0:
@@ -105,13 +93,14 @@ function createGraphic() {
 				month = 'Грудень';
 				break;
 		}
+
+		console.log(monthNumber, month)
 		gridContainer.innerHTML += `<div class="grid__text grid__text_month" style="grid-row: 12/14; grid-column: ${i + 1}/${i + 3}">${month}</div>`;
 
-		monthNumber += 1;
 
-		if (monthNumber >= 12) {
-			monthNumber = 0;
-		}
+
+
+
 		for (let j = 1; j <= (10 - deposPerscentArray[i]); j++) {
 			gridContainer.innerHTML += `<div class="grid__container_item-colored" style="grid-row: ${j}/${j + 2}; grid-column: ${i + 1}/${i + 3}">
 		</div>`;
