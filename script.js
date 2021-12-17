@@ -1,7 +1,10 @@
 function createGraphic() {
-	if (document.querySelector('.grid__container')) {
-		document.querySelector('.grid__container').remove();
+	if (document.querySelector('.grid__wrapper')) {
+		document.querySelector('.grid__wrapper').remove();
 	}
+	// if (document.querySelector('.grid__container')) {
+	// 	document.querySelector('.grid__container').remove();
+	// }
 
 	document.getElementById("y1").innerHTML = '';
 	let depositV = document.getElementById("deposit").value,
@@ -13,54 +16,21 @@ function createGraphic() {
 		monthV = document.getElementById("inMonth").value,
 		monthVint = parseInt(monthV, 10),
 		now = new Date(),
+		monthNumber = now.getMonth(),
 		month,
 		gridContainer,
 		i = 1,
 		percent = 100;
 
-	switch (now.getMonth()) {
-		case 0:
-			month = 'Січень';
-			break;
-		case 1:
-			month = 'Лютий';
-			break;
-		case 2:
-			month = 'Березень';
-			break;
-		case 3:
-			month = 'Квітень';
-			break;
-		case 4:
-			month = 'Травень';
-			break;
-		case 5:
-			month = 'Червень';
-			break;
-		case 6:
-			month = 'Липень';
-			break;
-		case 7:
-			month = 'Серпень';
-			break;
-		case 8:
-			month = 'Вересень';
-			break;
-		case 9:
-			month = 'Жовтень';
-			break;
-		case 10:
-			month = 'Листопад';
-			break;
-		case 11:
-			month = 'Грудень';
-			break;
-	}
 
+	document.querySelector('#y1').insertAdjacentHTML('afterend', `	<div class="grid__wrapper"></div>`);
 
-	document.querySelector('#y1').insertAdjacentHTML('afterend', `	<div class="grid__container">
-
+	document.querySelector('.grid__wrapper').insertAdjacentHTML('afterbegin', `<div class="grid__header">
+		<p class="grid__header_text grid__header_text-big">Нарощена сума</p>
+		<p class="grid__header_text grid__header_text-small">Щомісячно</p>
 	</div>`);
+
+	document.querySelector('.grid__wrapper').insertAdjacentHTML('beforeend', `	<div class="grid__container"></div>`);
 
 
 
@@ -72,7 +42,6 @@ function createGraphic() {
 		var result = depositVint / 100 * interestVint;
 		depositVint = depositVint + result;
 		deposArray[i] = +depositVint.toFixed(2);
-		console.log(depositVint.toFixed(2));
 
 		// for (let j = 1; j <= 11; j++) {
 		// 	gridContainer.innerHTML += `<div class="grid__container_item" data-gridnumber="${j}-${i}">
@@ -84,8 +53,6 @@ function createGraphic() {
 
 	// document.querySelector('[data-gridnumber="11-1"]').style.gridColumn = '1/2';
 	// document.querySelector('[data-gridnumber="11-1"]').style.gridRow = '1/8';
-
-	console.log(deposArray);
 
 	for (let i = 1; i < deposArray.length; i++) {
 		deposPerscentArray[i] = Math.round((deposArray[i] * 10 / deposArray[deposArray.length - 1]));
@@ -99,20 +66,57 @@ function createGraphic() {
 	for (let i = 1; i < deposPerscentArray.length; i++) {
 		gridContainer.innerHTML += `<div class="grid__container_item" data-gridnumber="${deposPerscentArray[i]}" style="grid-row: ${11 - deposPerscentArray[i]}/12; grid-column: ${i + 1}/${i + 3}">
 		</div>`;
+
+		switch (monthNumber) {
+			case 0:
+				month = 'Січень';
+				break;
+			case 1:
+				month = 'Лютий';
+				break;
+			case 2:
+				month = 'Березень';
+				break;
+			case 3:
+				month = 'Квітень';
+				break;
+			case 4:
+				month = 'Травень';
+				break;
+			case 5:
+				month = 'Червень';
+				break;
+			case 6:
+				month = 'Липень';
+				break;
+			case 7:
+				month = 'Серпень';
+				break;
+			case 8:
+				month = 'Вересень';
+				break;
+			case 9:
+				month = 'Жовтень';
+				break;
+			case 10:
+				month = 'Листопад';
+				break;
+			case 11:
+				month = 'Грудень';
+				break;
+		}
+		gridContainer.innerHTML += `<div class="grid__text grid__text_month" style="grid-row: 12/14; grid-column: ${i + 1}/${i + 3}">${month}</div>`;
+
+		monthNumber += 1;
+
+		if (monthNumber >= 12) {
+			monthNumber = 0;
+		}
 		for (let j = 1; j <= (10 - deposPerscentArray[i]); j++) {
 			gridContainer.innerHTML += `<div class="grid__container_item-colored" style="grid-row: ${j}/${j + 2}; grid-column: ${i + 1}/${i + 3}">
 		</div>`;
 		}
-
 	}
-
-
-	console.log(deposPerscentArray);
-
-
-
-
-
 }
 
 document.querySelector('#createGraphicButton').addEventListener('click', (e) => {

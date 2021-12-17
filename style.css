@@ -2,15 +2,43 @@
 	width: 100px;
 	height: 30px;
 }
+body {
+	background-color: #000;
+}
+
+.grid__wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 1160px;
+	height: 590px;
+	background-color: #262230;
+	border-radius: 20px;
+	border: 1px solid
+		linear-gradient(
+			107.13deg,
+			#b4a0e6 11.28%,
+			rgba(202, 148, 255, 0) 38.99%,
+			rgba(155, 73, 193, 0) 80.03%,
+			#8159b3 92.71%
+		);
+	overflow: visible;
+}
 
 .grid__container {
 	display: grid;
-	padding: 20px;
-	background-color: #262230;
+	padding-top: 8px;
+	width: 1075px;
+	height: 600px;
+	/* margin-right: 40px; */
+	/* scrollbar-width: thin; */
+	overflow: auto;
+
 	grid-template-rows: repeat(12, 27px); /* 3 строки */
 	grid-template-columns: repeat(5, 86px);
 	/* grid-gap: 5px; */
 	row-gap: 10px;
+
 	/* column-gap: 6px; */
 	/* grid-auto-flow: dense;
 	grid-auto-flow: column; */
@@ -46,7 +74,6 @@
 
 .grid__text {
 	display: flex;
-	justify-content: flex-end;
 	align-items: center;
 	width: 86px;
 	height: 27px;
@@ -55,9 +82,50 @@
 	font-weight: normal;
 	font-size: 15.2621px;
 	line-height: 19px;
-	/* identical to box height */
-
-	text-align: right;
-
 	color: #ffffff;
+}
+
+.grid__text_percent {
+	justify-content: flex-end;
+}
+
+.grid__text_month {
+	justify-content: center;
+}
+
+.grid__container::-webkit-scrollbar {
+	height: 6px;
+}
+.grid__container::-webkit-scrollbar-track {
+	background: #62507b; /* цвет дорожки */
+	border-radius: 25px;
+}
+.grid__container::-webkit-scrollbar-thumb {
+	background: linear-gradient(240.95deg, #853ff8 25.01%, #af29f7 87.93%);
+	border-radius: 20px; /* закругления плашки */
+}
+
+.grid__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 954px;
+	font-family: Proxima Nova;
+	font-style: normal;
+	color: #ffffff;
+	font-feature-settings: "liga" off;
+}
+
+.grid__header_text-big {
+	/* margin-left: 155px; */
+	margin-right: -200px;
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 32px;
+}
+
+.grid__header_text-small {
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 26px;
 }
