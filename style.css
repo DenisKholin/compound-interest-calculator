@@ -3,8 +3,26 @@
 	height: 30px;
 }
 
+html,
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #212025;
+	color: #fff;
+	overflow-x: hidden;
+}
+
 * {
 	box-sizing: border-box;
+}
+
+.wrapper {
+	width: 1120px;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
 }
 
 .grid__wrapper {
@@ -12,7 +30,8 @@
 	flex-direction: column;
 	align-items: center;
 	padding-right: 80px;
-	width: 1120px;
+	/* width: 1120px; */
+	width: 100%;
 	height: 590px;
 	background-color: #262230;
 	border-radius: 20px;
@@ -26,6 +45,9 @@
 		);
 	overflow: visible;
 	margin-bottom: 100px;
+	font-family: "ProximaNova", Sans-serif;
+	font-style: normal;
+	color: #ffffff;
 }
 
 .grid__wrapper_inner {
@@ -34,12 +56,13 @@
 
 .grid__container {
 	display: grid;
-	width: 980px;
+	width: 978px;
 	height: 489.5px;
 	overflow: auto;
 	grid-template-rows: repeat(12, 27px); /* 3 строки */
 	grid-template-columns: repeat(5, 86px);
 	row-gap: 10px;
+	column-gap: 12px;
 }
 
 .grid__container-month {
@@ -68,6 +91,9 @@
 	height: 27px;
 	width: 86px;
 	border-radius: 4px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .grid__text {
@@ -127,4 +153,70 @@
 	font-weight: normal;
 	font-size: 16px;
 	line-height: 26px;
+}
+
+div[data-gridnumber="1"] {
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+}
+
+div[data-gridnumber="1"] p {
+	display: none;
+}
+
+@media screen and (max-width: 1120px) {
+	.grid__wrapper {
+		background-color: transparent;
+		/* height: 400px; */
+		align-items: flex-start;
+	}
+
+	.grid__wrapper_inner {
+		margin-left: 40px;
+	}
+
+	.grid__container-month {
+		display: none;
+	}
+
+	.grid__header_text-small {
+		display: none;
+	}
+
+	.grid__header_text-big {
+		margin-left: 42px;
+	}
+
+	/* .grid__container::-webkit-scrollbar {
+		height: 0px;
+	} */
+
+	div[data-gridnumber="1"] p {
+		display: block;
+	}
+
+	.grid__container {
+		grid-template-rows: repeat(12, 18px); /* 3 строки */
+		grid-template-columns: repeat(5, 56px);
+		row-gap: 7px;
+		column-gap: 8px;
+		font-size: 10.4392px;
+		line-height: 13px;
+		height: 330px;
+	}
+
+	.grid__container_item {
+		width: 56px;
+	}
+
+	.grid__text_month {
+		width: 56px;
+		font-size: 10.4392px;
+	}
+
+	.grid__container_item-colored {
+		width: 56px;
+		height: 18px;
+	}
 }

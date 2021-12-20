@@ -17,7 +17,9 @@ function createGraphic() {
 		month,
 		gridContainer,
 		i = 1,
-		percent = 100;
+		percent = 100,
+		windowWidth = window.outerWidth;
+	console.log(windowWidth);
 
 	document.querySelector('#y1').insertAdjacentHTML('beforebegin', `	<div class="grid__wrapper"></div>`);
 
@@ -33,7 +35,16 @@ function createGraphic() {
 	document.querySelector('.grid__container-month').insertAdjacentHTML('afterend', `	<div class="grid__container"></div>`);
 
 	gridContainer = document.querySelector('.grid__container');
-	gridContainer.style.gridTemplateColumns = `repeat(${monthVint}, 98px)`;
+
+
+	if (window.matchMedia('(max-width: 1120px)').matches) {
+		gridContainer.style.gridTemplateColumns = `repeat(${monthVint}, 56px)`;
+		gridContainer.style.width = `${windowWidth - 50}px`;
+	} else {
+		gridContainer.style.gridTemplateColumns = `repeat(${monthVint}, 86px)`;
+	}
+
+
 
 	for (i; i <= monthVint; i++) {
 		var result = depositVint / 100 * interestVint;
@@ -51,7 +62,7 @@ function createGraphic() {
 	}
 
 	for (let i = 1; i < deposPerscentArray.length; i++) {
-		gridContainer.innerHTML += `<div class="grid__container_item" data-gridnumber="${deposPerscentArray[i]}" style="grid-row: ${11 - deposPerscentArray[i]}/12; grid-column: ${i}/${i + 2}">
+		gridContainer.innerHTML += `<div class="grid__container_item" data-gridnumber="${i}" style="grid-row: ${11 - deposPerscentArray[i]}/12; grid-column: ${i}/${i + 2}">
 		</div>`;
 		monthNumber += 1;
 
@@ -97,15 +108,16 @@ function createGraphic() {
 				month = 'Грудень';
 				break;
 		}
-
-		console.log(monthNumber, month)
 		gridContainer.innerHTML += `<div class="grid__text grid__text_month" style="grid-row: 12/14; grid-column: ${i}/${i + 2}">${month}</div>`;
 
 		for (let j = 1; j <= (10 - deposPerscentArray[i]); j++) {
-			gridContainer.innerHTML += `<div class="grid__container_item-colored" style="grid-row: ${j}/${j + 2}; grid-column: ${i}/${i}">
+			gridContainer.innerHTML += `<div class="grid__container_item-colored grid__container_item-colored-${i}-${j}" style="grid-row: ${j}/${j + 2}; grid-column: ${i}/${i}">
 		</div>`;
 		}
 	}
+
+	document.querySelector('[data-gridnumber="1"]').innerHTML = `<p>0%</p>`;
+	document.querySelector('.grid__container_item-colored-1-1').innerHTML = `<p>100%</p>`;
 }
 
 document.querySelector('#createGraphicButton').addEventListener('click', (e) => {
@@ -114,3 +126,5 @@ document.querySelector('#createGraphicButton').addEventListener('click', (e) => 
 	createGraphic.i = 1;
 
 });
+
+createGraphic();
